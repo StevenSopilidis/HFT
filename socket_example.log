@@ -1,0 +1,19 @@
+/home/stevensopi/Desktop/trading_system/./include/socket_utils.h:80 createSocket() Wed Oct  2 08:18:23 2024 ip:127.0.0.1 iface:lo port:12345 is_udp:0 is_blocking:0 is_listening:1 ttl:0 SO_time:1
+/home/stevensopi/Desktop/trading_system/src/tcp_server.cpp:60 poll() Wed Oct  2 08:18:26 2024 EPOLLIN istener_socket:5
+/home/stevensopi/Desktop/trading_system/src/tcp_server.cpp:88 poll() Wed Oct  2 08:18:26 2024 have_new_connection
+/home/stevensopi/Desktop/trading_system/src/tcp_server.cpp:98 poll() Wed Oct  2 08:18:26 2024 accepted socket:6
+/home/stevensopi/Desktop/trading_system/src/tcp_server.cpp:88 poll() Wed Oct  2 08:18:26 2024 have_new_connection
+/home/stevensopi/Desktop/trading_system/src/tcp_socket.cpp:60 sendAndRecv() Wed Oct  2 08:18:26 2024 read socket:6 len:20 utime:1727846306640434239 ktime:1727846306585958000 diff:54476239
+TCPServer::defaultRecvCallback() socket:6 len:20 rx:1727846306585958000
+/home/stevensopi/Desktop/trading_system/src/tcp_socket.cpp:68 sendAndRecv() Wed Oct  2 08:18:26 2024 send socket:6 len:43
+TCPServer::defaultRecvFinishedCallback()
+/home/stevensopi/Desktop/trading_system/src/tcp_server.cpp:66 poll() Wed Oct  2 08:18:26 2024 EPOLLIN socket:6
+/home/stevensopi/Desktop/trading_system/src/tcp_server.cpp:60 poll() Wed Oct  2 08:18:42 2024 EPOLLIN istener_socket:5
+/home/stevensopi/Desktop/trading_system/src/tcp_server.cpp:88 poll() Wed Oct  2 08:18:42 2024 have_new_connection
+/home/stevensopi/Desktop/trading_system/src/tcp_server.cpp:98 poll() Wed Oct  2 08:18:42 2024 accepted socket:7
+/home/stevensopi/Desktop/trading_system/src/tcp_server.cpp:88 poll() Wed Oct  2 08:18:42 2024 have_new_connection
+/home/stevensopi/Desktop/trading_system/src/tcp_socket.cpp:60 sendAndRecv() Wed Oct  2 08:18:42 2024 read socket:7 len:20 utime:1727846322960238183 ktime:1727846322905491000 diff:54747183
+TCPServer::defaultRecvCallback() socket:7 len:20 rx:1727846322905491000
+/home/stevensopi/Desktop/trading_system/src/tcp_socket.cpp:68 sendAndRecv() Wed Oct  2 08:18:42 2024 send socket:7 len:43
+TCPServer::defaultRecvFinishedCallback()
+/home/stevensopi/Desktop/trading_system/src/tcp_server.cpp:66 poll() Wed Oct  2 08:18:42 2024 EPOLLIN socket:7
