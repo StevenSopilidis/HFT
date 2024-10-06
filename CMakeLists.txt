@@ -8,10 +8,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(
     TradingSystem
-    ./src/logging.cpp
-    ./src/tcp_socket.cpp
-    ./src/tcp_server.cpp
-    ./examples/socket_examples.cpp
+    ./Common/src/logging.cpp
+    ./Common/src/tcp_socket.cpp
+    ./Common/src/tcp_server.cpp
+    ./main.cpp
 )
 
 # Enable clang-format
@@ -54,7 +54,7 @@ if(CLANG_TIDY)
 endif()
 
 
-target_include_directories(TradingSystem PUBLIC ./include)
+target_include_directories(TradingSystem PUBLIC ./Common/include)
 
 target_link_libraries(
   TradingSystem PUBLIC
