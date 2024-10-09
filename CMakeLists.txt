@@ -36,8 +36,11 @@ if(CLANG_TIDY)
 
     # Define the directories to search for source files
     set(SOURCE_DIRS
-        ./include
-        ./src
+        ./Common/include
+        ./Common/src
+        ./Exchange/order_server/include
+        ./Exchange/market_data/include
+
     )
 
     # Gather all *.cpp and *.h files in the specified directories
@@ -55,6 +58,9 @@ endif()
 
 
 target_include_directories(TradingSystem PUBLIC ./Common/include)
+target_include_directories(TradingSystem PUBLIC ./Exchange/order_server/include)
+target_include_directories(TradingSystem PUBLIC ./Exchange/market_data/include)
+
 
 target_link_libraries(
   TradingSystem PUBLIC
