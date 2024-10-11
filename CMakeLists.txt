@@ -11,6 +11,7 @@ add_executable(
     ./Common/src/logging.cpp
     ./Common/src/tcp_socket.cpp
     ./Common/src/tcp_server.cpp
+    ./Exchange/matcher/matching_engine.cpp
     ./main.cpp
 )
 
@@ -38,9 +39,9 @@ if(CLANG_TIDY)
     set(SOURCE_DIRS
         ./Common/include
         ./Common/src
-        ./Exchange/order_server/include
-        ./Exchange/market_data/include
-
+        ./Exchange/order_server
+        ./Exchange/market_data
+        ./Exchange/matcher
     )
 
     # Gather all *.cpp and *.h files in the specified directories
@@ -58,8 +59,10 @@ endif()
 
 
 target_include_directories(TradingSystem PUBLIC ./Common/include)
-target_include_directories(TradingSystem PUBLIC ./Exchange/order_server/include)
-target_include_directories(TradingSystem PUBLIC ./Exchange/market_data/include)
+target_include_directories(TradingSystem PUBLIC ./Exchange/order_server)
+target_include_directories(TradingSystem PUBLIC ./Exchange/market_data)
+target_include_directories(TradingSystem PUBLIC ./Exchange/matcher)
+
 
 
 target_link_libraries(

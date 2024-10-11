@@ -1,9 +1,9 @@
 #pragma once
 
 #include <sstream>
-#include "Common/include/types.h"
-#include "Common/include/types.h"
-#include "Common/include/lf_queue.h"
+#include "types.h"
+#include "types.h"
+#include "lf_queue.h"
 
 using namespace Common;
 
@@ -66,6 +66,6 @@ namespace Exchange {
 #pragma pack(pop)
     
     // queue that will be used for communication between order matching engine ---> order gateway  
-    typedef LFQueue<ClientResponseType> ClientResponseLFQueue;
+    typedef LFQueue<MEClientResponse> ClientResponseLFQueue;
 
 }
