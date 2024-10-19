@@ -68,4 +68,12 @@ namespace Exchange {
         *nextWrite = std::move(*clientResponse);
         _outgoingOgwResponses->updateWriteIndex();
     }
+
+    auto MatchingEngine::sendMarketUpdate(const MEMarketUpdate* marketUpdate) noexcept -> void {
+        _logger.log("%:% %() % Sending %\n", __FILE__, __LINE__, __FUNCTION__, Common::getCurrentTimeStr(&_timeStr), marketUpdate->toString());
+        auto nextWrite = _outgoingMDUpdates->getNextWriteTo();
+        *nextWrite = *marketUpdate;
+        _outgoingMDUpdates->updateWriteIndex();     
+    }
+    
 }

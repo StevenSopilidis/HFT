@@ -12,6 +12,7 @@ add_executable(
     ./Common/src/tcp_socket.cpp
     ./Common/src/tcp_server.cpp
     ./Exchange/matcher/matching_engine.cpp
+    ./Exchange/matcher/me_order_book.cpp
     ./main.cpp
 )
 

@@ -34,7 +34,7 @@ namespace Exchange {
         return "UNKNOWN";
     };
 
-    struct MEClientResponse {
+    struct  MEClientResponse {
         ClientResponseType type = ClientResponseType::INVALID;
         ClientId clientId = ClientId_INVALID;
         TickerId tickerId = TickerId_INVALID;

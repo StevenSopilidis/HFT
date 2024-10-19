@@ -8,6 +8,8 @@
 #include "client_response.h"
 #include "market_update.h"
 
+#include "me_order_book.h"
+
 using namespace Common;
 
 namespace Exchange {
@@ -25,6 +27,7 @@ namespace Exchange {
             auto stop() noexcept -> void;
 
             auto sendClientResponse(const MEClientResponse* clientResponse) noexcept -> void;
+            auto sendMarketUpdate(const MEMarketUpdate* marketUpdate) noexcept -> void;
 
         private:
             auto processClientRequest(const MEClientRequest* clientRequest) noexcept -> void;
@@ -39,7 +42,7 @@ namespace Exchange {
             volatile bool _run = false;
             std::string _timeStr;
             Logger _logger;
-            // used to store OrderBooks for each trading instrument
             OrderBookHashMap _tickerOrderBook; 
-    }; 
+    };
+
 }

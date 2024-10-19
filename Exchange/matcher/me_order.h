@@ -72,4 +72,8 @@ namespace Exchange {
 
     // hash map implemented via std::array that encapsulated all Orders
     typedef std::array<MEOrderAtPrice*, ME_MAX_PRICE_LEVELS> OrdersAtPriceHashMap;
+    // hash map that tracks orders
+    typedef std::array<MEOrder*, ME_MAX_ORDER_IDS> OrderHashMap;
+    // hash map that tracks orders of client
+    typedef std::array<OrderHashMap, ME_MAX_CLIENTS> ClientOrderHashMap;
 }
