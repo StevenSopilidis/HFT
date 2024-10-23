@@ -10,10 +10,13 @@ namespace Exchange {
 #pragma pack(push, 1)
     enum class MarketUpdateType : uint8_t {
         INVALID = 0,
-        ADD = 1,
-        MODIFY = 2,
-        CANCEL = 3,
-        TRADE = 4
+        CLEAR = 1, // instructs market participants to clear their order book
+        ADD = 2,
+        MODIFY = 3,
+        CANCEL = 4,
+        TRADE = 5, 
+        SNAPSHOT_START = 6, // signifies that a snapshot message is starting
+        SNAPSHOT_END = 7,  // signifies that a snapshot update has been delivered
     };
 
     inline std::string marketUpdateTypeToString(MarketUpdateType type) noexcept {
@@ -59,8 +62,28 @@ namespace Exchange {
         };
     };
 
+    // struct that represents market update that will be sent by the market data publisher
+    // to the market participant
+    struct MDPMarketUpdate {
+        // will be used by the client to identify if any packet was dropped
+        size_t seqNumber = 0;
+        MEMarketUpdate meMarketUpdate;
+
+        auto toString() const {
+            std::stringstream ss;
+            ss << "MDPMarketUpdate"
+            << " ["
+            << " seq:" << seqNumber
+            << " " << meMarketUpdate.toString()
+            << "]";
+            return ss.str();
+        }
+    };
+    
+
 #pragma pack(pop)
 
     // queue used for communicatoin from matching engine to market data publisher
     typedef LFQueue<MEMarketUpdate> MEMarketUpdateLFQueue;
+    typedef LFQueue<MDPMarketUpdate> MDPMarketUpdateLFQueue;
 }

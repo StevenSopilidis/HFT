@@ -29,9 +29,8 @@ namespace Exchange {
         return "UNKNOWN";
     }
 
-    // struct that represents order request from client, its the internal 
-    // representation used by the matching engine, its now what the client 
-    // neccesserily uses
+    // struct that represents client order request comming from order gateway
+    // to matching engine
     struct MEClientRequest {
         ClientRequestType type = ClientRequestType::INVALID;
         ClientId clientId = ClientId_INVALID;
@@ -51,6 +50,22 @@ namespace Exchange {
             << " side:" << sideToString(side)
             << " qty:" << qtyToString(qty)
             << " price:" << priceToString(price)
+            << "]";
+            return ss.str();
+        }
+    };
+
+    // struct that represents message sent by market participant to order gateway
+    struct OMClientRequest {
+        size_t seqNum; // for sync purposes
+        MEClientRequest meClientRequest;
+
+        auto toString() const {
+            std::stringstream ss;
+            ss << "OMClientRequest"
+            << " ["
+            << "seq:" << seqNum
+            << " " << meClientRequest.toString()
             << "]";
             return ss.str();
         }

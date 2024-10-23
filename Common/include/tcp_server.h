@@ -20,7 +20,12 @@ namespace Common {
         auto defaultRecvFinishedCallback() noexcept -> void;
         // function for getting server up and running
         auto listenAndServe(const std::string& iface, int port) noexcept -> void;
-        
+        // function for created and starting listening socket
+        auto listen(const std::string& iface, const int port) noexcept -> void;
+        // function for send & receiving from socket
+        auto sendAndRecv() noexcept -> void;
+        // function for starting polling
+        auto poll() noexcept -> void;
         
     private:
         auto destroy() noexcept -> void;
@@ -30,12 +35,6 @@ namespace Common {
         auto epoll_rmv(TCPSocket* s) noexcept -> bool;  
         // function for removing socket from list of sockets
         auto rmv(TCPSocket* s) noexcept -> void;
-        // function for send & receiving from socket
-        auto sendAndRecv() noexcept -> void;
-        // function for starting polling
-        auto poll() noexcept -> void;
-        // function for created and starting listening socket
-        auto listen(const std::string& iface, const int port) noexcept -> void;
 
     public:
         int efd = -1;

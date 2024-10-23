@@ -34,6 +34,7 @@ namespace Exchange {
         return "UNKNOWN";
     };
 
+    // struct that represents client response sent by matching engine to order gateway
     struct  MEClientResponse {
         ClientResponseType type = ClientResponseType::INVALID;
         ClientId clientId = ClientId_INVALID;
@@ -61,6 +62,22 @@ namespace Exchange {
             << "]";
             return ss.str();
         }
+    };
+
+    // struct representing client response sent from order gateway to client
+    struct OMClientResponse {
+        size_t seqNum = 0;
+        MEClientResponse meClientResponse;
+
+        auto toString() const {
+            std::stringstream ss;
+            ss << "OMClientResponse"
+            << " ["
+            << "seq:" << seqNum
+            << " " << meClientResponse.toString()
+            << "]";
+            return ss.str();
+        };
     };
 
 #pragma pack(pop)
