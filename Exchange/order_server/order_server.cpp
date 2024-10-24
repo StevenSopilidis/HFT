@@ -28,8 +28,6 @@ namespace Exchange {
     }
 
     auto OrderServer::run() noexcept -> void {
-        start();
-
         _logger.log("%:% %() %\n", __FILE__, __LINE__, __FUNCTION__, Common::getCurrentTimeStr(&_timeStr));
         while(_run) {
             _server.poll();
@@ -40,7 +38,7 @@ namespace Exchange {
                 _logger.log("%:% %() % Processing cid:% seq:% %\n", __FILE__, __LINE__, __FUNCTION__, Common::getCurrentTimeStr(&_timeStr), clientResponse->clientId, nextOutgoingSeqNum, clientResponse->toString());
 
                 // make sure that the client socket exists
-                ASSERT(_cidTcpSocket[clientResponse->clientId] != nullptr, "Dont have a TCPSocket for ClientId:" + std::to_string(clientResponse->clientId));
+                    ASSERT(_cidTcpSocket[clientResponse->clientId] != nullptr, "Dont have a TCPSocket for ClientId:" + std::to_string(clientResponse->clientId));
 
                 _cidTcpSocket[clientResponse->clientId]->send(&nextOutgoingSeqNum, sizeof(nextOutgoingSeqNum));
                 _cidTcpSocket[clientResponse->clientId]->send(clientResponse, sizeof(clientResponse));

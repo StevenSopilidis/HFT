@@ -14,7 +14,7 @@ add_executable(
     ./Exchange/matcher/matching_engine.cpp
     ./Exchange/matcher/me_order_book.cpp
     ./Exchange/order_server/order_server.cpp
-    ./main.cpp
+    ./Exchange/exchange_main.cpp
 )
 
 # Enable clang-format

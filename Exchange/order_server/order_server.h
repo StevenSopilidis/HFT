@@ -16,10 +16,10 @@ namespace Exchange {
         ~OrderServer();
         
         auto stop() noexcept -> void;
-        auto run() noexcept -> void;
+        auto start() noexcept -> void;
 
     private:
-        auto start() noexcept -> void;
+        auto run() noexcept -> void;
 
         auto recvCallback(TCPSocket *socket, Nanos rxTime) noexcept -> void;
         auto recvFinishedCallback() noexcept -> void;
