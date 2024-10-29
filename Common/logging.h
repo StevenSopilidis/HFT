@@ -41,7 +41,7 @@ namespace Common {
         : _filename(filename), _queue(LOG_QUEUE_IZE) {
             _file.open(_filename);
             ASSERT(_file.is_open(), "Could not open log file: " + _filename);
-            _logger_thread = createAndStartThread(-1, "Common/Logger", [this](){ flushQueue(); });
+            _logger_thread = createAndStartThread(-1, "Common/Logger/" + filename, [this](){ flushQueue(); });
             ASSERT(_logger_thread != nullptr, "Failed to start logger thread");
 
         }

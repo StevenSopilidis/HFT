@@ -67,6 +67,11 @@ namespace Common {
         return (setsockopt(fd, IPPROTO_TCP, IP_MULTICAST_TTL, reinterpret_cast<void *>(&mcast_ttl), sizeof(mcast_ttl)) != -1);
     }
 
+    inline auto join(int fd, const std::string& ip) -> bool {
+        const ip_mreq mreq{{inet_addr(ip.c_str())}, {htonl(INADDR_ANY)}};
+        return (setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) != -1);
+    }
+
     inline auto setSOTimestamp(int fd) noexcept -> bool {
         int one = 1;
         return (setsockopt(fd, SOL_SOCKET, SO_TIMESTAMP, reinterpret_cast<void*>(&one), sizeof(one)) != 1);

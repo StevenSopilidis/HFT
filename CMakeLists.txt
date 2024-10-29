@@ -8,11 +8,14 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(
     TradingSystem
-    ./Common/src/logging.cpp
-    ./Common/src/tcp_socket.cpp
-    ./Common/src/tcp_server.cpp
+    ./Common/logging.cpp
+    ./Common/tcp_socket.cpp
+    ./Common/tcp_server.cpp
+    ./Common/mcast_socket.cpp
     ./Exchange/matcher/matching_engine.cpp
     ./Exchange/matcher/me_order_book.cpp
+    ./Exchange/market_data/market_data_publisher.cpp
+    ./Exchange/market_data/snapshot_synthesizer.cpp
     ./Exchange/order_server/order_server.cpp
     ./Exchange/exchange_main.cpp
 )
@@ -39,8 +42,7 @@ if(CLANG_TIDY)
 
     # Define the directories to search for source files
     set(SOURCE_DIRS
-        ./Common/include
-        ./Common/src
+        ./Common
         ./Exchange/market_data
         ./Exchange/matcher
         ./Exchange/order_server
@@ -60,7 +62,7 @@ if(CLANG_TIDY)
 endif()
 
 
-target_include_directories(TradingSystem PUBLIC ./Common/include)
+target_include_directories(TradingSystem PUBLIC ./Common)
 target_include_directories(TradingSystem PUBLIC ./Exchange/market_data)
 target_include_directories(TradingSystem PUBLIC ./Exchange/matcher)
 target_include_directories(TradingSystem PUBLIC ./Exchange/order_server)
