@@ -3,6 +3,8 @@
 #include <macros.h>
 #include <limits>
 #include <cstdint>
+#include <sstream>
+#include <array>
 
 namespace Common {
     // limits used in our system
@@ -30,42 +32,42 @@ namespace Common {
 
     
     constexpr auto OrderId_INVALID = std::numeric_limits<OrderId>::max();
-    inline auto orderIdToString(OrderId order_id) -> std::string {
+    inline auto orderIdToString(OrderId order_id) noexcept -> std::string {
         if (UNLIKELY(OrderId_INVALID == order_id))
             return "INVALID";
         return std::to_string(order_id);
     }
 
     constexpr auto TickerId_INVALID = std::numeric_limits<TickerId>::max();
-    inline auto tickerIdToString(TickerId ticker_id) -> std::string {
+    inline auto tickerIdToString(TickerId ticker_id) noexcept -> std::string {
         if (UNLIKELY(TickerId_INVALID == ticker_id))
             return "INVALID";
         return std::to_string(ticker_id);
     }
 
     constexpr auto ClientId_INVALID = std::numeric_limits<ClientId>::max();
-    inline auto clientIdToString(ClientId client_id) -> std::string {
+    inline auto clientIdToString(ClientId client_id) noexcept -> std::string {
         if (UNLIKELY(ClientId_INVALID == client_id))
             return "INVALID";
         return std::to_string(client_id);
     }
 
     constexpr auto Price_INVALID = std::numeric_limits<Price>::max();
-    inline auto priceToString(Price price) -> std::string {
+    inline auto priceToString(Price price) noexcept -> std::string {
         if (UNLIKELY(Price_INVALID == price))
             return "INVALID";
         return std::to_string(price);
     }
 
     constexpr auto Qty_INVALID = std::numeric_limits<Qty>::max();
-    inline auto qtyToString(Qty qty) -> std::string {
+    inline auto qtyToString(Qty qty) noexcept -> std::string {
         if (UNLIKELY(Qty_INVALID == qty))
             return "INVALID";
         return std::to_string(qty);
     }
 
     constexpr auto Priority_INVALID = std::numeric_limits<Priority>::max();
-    inline auto priorityToString(Priority priority) -> std::string {
+    inline auto priorityToString(Priority priority) noexcept -> std::string {
         if (UNLIKELY(Priority_INVALID == priority))
             return "INVALID";
         return std::to_string(priority);
@@ -74,10 +76,11 @@ namespace Common {
     enum class Side {
         Invalid = 0,
         Buy = 1,
-        Sell = -1
+        Sell = -1,
+        Max = 2,
     };
 
-    inline auto sideToString(Side side) -> std::string {
+    inline auto sideToString(Side side) noexcept -> std::string {
         switch (side)
         {
         case Side::Buy:
@@ -90,4 +93,50 @@ namespace Common {
             return "UNKNOWN";        
         }
     }
+
+    inline constexpr auto sideToIndex(Side side) noexcept -> size_t {
+        return static_cast<size_t>(side) + 1;
+    }
+
+    inline constexpr auto sideToValue(Side side) noexcept -> int {
+        return static_cast<int>(side);
+    }
+
+    // struct representing configuration provided to RiskManager
+    struct RiskCfg {
+        Qty maxOrderSize = 0; // maximum order size allowed by the strategy
+        Qty maxPositions = 0; // maximum positions that strategy is allowed to build
+        double maxLoss = 0;   // maximum loss that strategy is allowed to make before shutting it down 
+    
+        auto toString() const noexcept -> std::string {
+            std::stringstream ss;
+            ss << "RiskCfg{"
+            << "max-order-size:" <<
+            qtyToString(maxOrderSize) << " "
+            << "max-position:" << qtyToString(maxPositions)
+            << " "
+            << "max-loss:" << maxLoss
+            << "}";
+            return ss.str();
+        }
+    }; 
+
+    // struct representing configuration provided to TradingEngine for individual Ticker
+    struct TradingEngineCfg {
+        Qty clip = 0;
+        double threshold = 0;
+        RiskCfg riskCfg;
+
+        auto toString() const noexcept -> std::string {
+            std::stringstream ss;
+            ss << "TradingEngineCfg{"
+            << "clip:" << qtyToString(clip) << " "
+            << "thresh:" << threshold << " "
+            << "risk:" << riskCfg.toString()
+            << "}";
+        }
+    };
+
+    // array that holds configuration for all possible tickers
+    typedef std::array<TradingEngineCfg, ME_MAX_TICKERS> TradingEngineCfgHashMap;
 }

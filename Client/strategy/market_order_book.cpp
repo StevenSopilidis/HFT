@@ -16,6 +16,10 @@ namespace Trading {
         _tradingEngine = tradingEngine;
     }
 
+    auto MarketOrderBook::getBBO() const noexcept -> const BBO* {
+        return &_bbo;
+    }
+
     auto MarketOrderBook::onMarketUpdate(const Exchange::MEMarketUpdate* marketUpdate) noexcept -> void {
         // see wether or not we need to update BBO
         const auto bidsUpdated = (_bidsByPrice && marketUpdate->side == Side::Buy && marketUpdate->price >= _bidsByPrice->price);

@@ -161,6 +161,7 @@ namespace Exchange {
         _orderPool.deallocate(order);
     }
 
+
     auto MEOrderBook::removeOrdersAtPrice(Side side, Price price) noexcept -> void {
         const auto bestOrdersAtPrice = (side == Side::Buy? _bidsByPrice : _asksByPrice);
         auto ordersAtPrice = getOrdersAtPrice(price);
@@ -169,9 +170,11 @@ namespace Exchange {
         } else {
             ordersAtPrice->prevEntry->nextEntry = ordersAtPrice->nextEntry;
             ordersAtPrice->nextEntry->prevEntry = ordersAtPrice->prevEntry;
+            
             if (ordersAtPrice == bestOrdersAtPrice) { // if price level removed was head for bids or asks list
                 (side == Side::Buy? _bidsByPrice : _asksByPrice) = ordersAtPrice->nextEntry;
             }
+            
             ordersAtPrice->prevEntry = ordersAtPrice->nextEntry = ordersAtPrice;
             _ordersAtPricePool.deallocate(ordersAtPrice);
         }

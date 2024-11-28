@@ -18,6 +18,10 @@ add_executable(
     ./Exchange/market_data/snapshot_synthesizer.cpp
     ./Exchange/order_server/order_server.cpp
     ./Exchange/exchange_main.cpp
+    ./Client/market_data/market_data_consumer.cpp
+    ./Client/strategy/market_order_book.cpp
+    ./Client/strategy/order_manager.cpp
+    ./Client/order_gateway/order_gateway.cpp
 )
 
 # Enable clang-format
@@ -46,6 +50,9 @@ if(CLANG_TIDY)
         ./Exchange/market_data
         ./Exchange/matcher
         ./Exchange/order_server
+        ./Client/market_data
+        ./Client/strategy
+        ./Client/order_gateway
     )
 
     # Gather all *.cpp and *.h files in the specified directories
@@ -66,6 +73,9 @@ target_include_directories(TradingSystem PUBLIC ./Common)
 target_include_directories(TradingSystem PUBLIC ./Exchange/market_data)
 target_include_directories(TradingSystem PUBLIC ./Exchange/matcher)
 target_include_directories(TradingSystem PUBLIC ./Exchange/order_server)
+target_include_directories(TradingSystem PUBLIC ./Client/market_data)
+target_include_directories(TradingSystem PUBLIC ./Client/strategy)
+target_include_directories(TradingSystem PUBLIC ./Client/order_gateway)
 
 
 target_link_libraries(

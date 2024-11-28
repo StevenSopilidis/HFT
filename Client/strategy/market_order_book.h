@@ -24,6 +24,8 @@ namespace Trading {
         auto setTradingEngine(TradingEngine* tradingEngine) noexcept -> void;
         // method to be called when we receive market update data
         auto onMarketUpdate(const Exchange::MEMarketUpdate* marketUpdate) noexcept -> void;
+        // method for getting BBO
+        auto getBBO() const noexcept -> const BBO*;
 
     private:
         // method for updating BBO structure
