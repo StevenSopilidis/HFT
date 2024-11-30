@@ -139,4 +139,43 @@ namespace Common {
 
     // array that holds configuration for all possible tickers
     typedef std::array<TradingEngineCfg, ME_MAX_TICKERS> TradingEngineCfgHashMap;
+
+
+    // enumeration representing trading algorithms
+    enum class AlgoType : int8_t {
+        INVALID = 0,
+        RANDOM = 1,
+        MAKE = 2, // market maker
+        TAKER = 3, // liquidity taker
+        MAX = 4,
+    };
+
+    inline auto algoTypeToString(AlgoType type) noexcept -> std::string {
+        switch (type)
+        {
+        case AlgoType::INVALID:
+            return "INVALID";
+        case AlgoType::RANDOM: 
+            return "RANDOM";
+        case AlgoType::MAKE:
+            return "MAKE";
+        case AlgoType::TAKER:
+            return "TAKER";
+        case AlgoType::MAX:
+            return "MAX";
+        }
+
+        return "UKNOWN";
+    }
+
+    inline auto stringToAlgoType(const std::string& str) noexcept -> AlgoType {
+        for (auto i = static_cast<int>(AlgoType::INVALID); i < static_cast<int>(AlgoType::MAX); i++) {
+            const auto type = static_cast<AlgoType>(i);
+
+            if (algoTypeToString(type) == str)
+                return type;
+        }
+
+        return AlgoType::INVALID;
+    }
 }
