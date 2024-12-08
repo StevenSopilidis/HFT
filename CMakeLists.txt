@@ -22,6 +22,7 @@ add_executable(
     ./Client/strategy/market_order_book.cpp
     ./Client/strategy/order_manager.cpp
     ./Client/order_gateway/order_gateway.cpp
+    ./Client/strategy/trading_engine.cpp
 )
 
 # Enable clang-format
